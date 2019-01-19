@@ -1,0 +1,8 @@
+{
+    "name": "Silica Mail",
+    "description": "Tweaks for the Jolla e-mail client.",
+    "category": "email",
+    "infos": {
+        "maintainer": "fravaccaro"
+    }
+}

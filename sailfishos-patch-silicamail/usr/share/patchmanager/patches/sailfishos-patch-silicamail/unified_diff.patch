@@ -1,0 +1,59 @@
+--- /usr/share/jolla-email/pages/HtmlViewer.qml	2019-01-19 13:19:26.845708940 +0100
++++ /usr/share/jolla-email/pages/HtmlViewer.qml	2019-01-19 13:20:47.873939377 +0100
+@@ -47,7 +47,7 @@
+             // Smaller content layout gets scaled up to WebView's width.
+             experimental.customLayoutWidth = width / _scale
+         } else {
+-            experimental.customLayoutWidth = width
++            experimental.customLayoutWidth = 350
+         }
+         // reload html
+         loadHtml(htmlBody, "file:///usr/share/jolla-email")
+@@ -88,7 +88,9 @@
+     experimental.preferences.javascriptEnabled: false
+     experimental.offline: !showImages
+ 
+-    experimental.userStyleSheets: [ Qt.resolvedUrl("htmlViewer.css") ]
++    experimental.userStyleSheets: [ (Theme.colorScheme == Theme.LightOnDark) ? Qt.resolvedUrl("/usr/share/patchmanager/patches/sailfishos-patch-silicamail/htmlViewer_Dark.css") : Qt.resolvedUrl("/usr/share/patchmanager/patches/sailfishos-patch-silicamail/htmlViewer_Light.css") ]
++
++    experimental.transparentBackground: true
+ 
+     header: MessageViewHeader {
+         width: webView.width
+
+--- /usr/share/jolla-email/pages/PlainTextViewer.qml	2019-01-19 13:22:47.758788029 +0100
++++ /usr/share/jolla-email/pages/PlainTextViewer.qml	2019-01-19 13:24:17.319627334 +0100
+@@ -58,7 +58,7 @@
+ 
+         width: flickable.contentWidth
+         height: Math.max(flickable.height, contentHeight) - y
+-        color: "white"
++        color: "transparent"
+     }
+ 
+     MessageViewPullDown {
+@@ -101,9 +101,9 @@
+             model: ListModel { id: textModel }
+             delegate: LinkedText {
+                 width: parent ? parent.width : 0
+-                color: "black"
++                color: Theme.primaryColor
+                 linkColor: Theme.highlightBackgroundColor
+-                font.pixelSize: Screen.sizeCategory >= Screen.Large ? Theme.fontSizeSmall : Theme.fontSizeExtraSmall
++                font.pixelSize: Screen.sizeCategory >= Screen.Large ? Theme.fontSizeMedium : Theme.fontSizeSmall
+                 wrapMode: Text.Wrap
+                 plainText: modelData
+             }
+
+--- /usr/share/jolla-email/pages/HtmlLoader.qml	2019-01-19 13:25:41.313644119 +0100
++++ /usr/share/jolla-email/pages/HtmlLoader.qml	2019-01-19 13:26:17.777643747 +0100
+@@ -115,7 +115,7 @@
+         anchors.fill: parent
+         anchors.topMargin: messageViewPage.isLandscape ? Theme.itemSizeSmall : Theme.itemSizeLarge
+ 
+-        color: "white"
++        color: "transparent"
+         z: 1
+ 
+         visible: !item || !item.visuallyCommitted
+
